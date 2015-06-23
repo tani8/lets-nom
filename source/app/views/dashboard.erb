@@ -1,0 +1,21 @@
+<div class="cover-container">
+
+  <!-- <div class="masthead clearfix"> -->
+    <div class="inner">
+      <h3 class="masthead-brand"><a href="/">Let's Nom</a></h3>
+      <nav>
+        <ul class="nav masthead-nav">
+          <% if @user %>
+            <h3> Hey, <%= @user.name.capitalize %>! </h3>
+          <% end %>
+          <class = ".navbar-btn"><a href="/logout">Logout</a></li>
+
+        </ul>
+      </nav>
+    </div>
+  <!-- </div> -->
+
+</div>
+  <%= erb :display_all %>
+
+

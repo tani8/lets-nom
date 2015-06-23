@@ -1,0 +1,20 @@
+<div class="container">
+  <a href="/"><h1>Let's Nom</h1></a>
+
+  <% if @error %>
+    <div class="errors"><%= @error %></div>
+  <% end %>
+
+  <form id="login" method="post" action="/login_users">
+    <h3>Login</h3>    
+    <hr width="50%">
+    Email:
+    <input type="email" name="email" placeholder="e.g., me@example.com">
+    <br>
+    Password:
+    <input type="password" name="password" placeholder="6 or more characters">
+    <br>
+    <input type="submit" value="Login">
+  </form>
+
+</div>

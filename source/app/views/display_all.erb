@@ -1,0 +1,31 @@
+<div class = "all-noms">
+  <% if @noms %>
+  <a href="/noms/new">
+    <h1><input type="submit" value="Post Noms"></h1>
+  </a>
+    <div id="map_wrapper">
+      <div id="map_canvas" class="mapping"></div>
+    </div>
+    <% @noms.each do |nom| %>
+      <div class = "each-nom">
+        <h2><%= nom.amount %> <%= nom.amount_type %> of <%= nom.food_name %></h2>
+        <p><img src="<%= nom.image_url %>" /></p>
+        <h3>Made with Love On: <%= nom.date_made %></h3>
+        <h3>Allergens: 
+          <%= nom.allergens %>
+        </h3>
+        <h3>Pick-Up Noms at: <%= nom.address %></h3>
+        <!-- <div id="map-canvas"></div> -->
+        <p class="lon" hidden><%= nom.lon %>.</p>
+        <p class="lat" hidden><%= nom.lat %>.</p>
+        <br>
+        <form action="/noms/<%= nom.id %>" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <input type="submit" value="Eat Noms!"></input>
+        </form>
+      </div>
+      <br>
+    <% end %>
+  <% end %>
+
+</div>
