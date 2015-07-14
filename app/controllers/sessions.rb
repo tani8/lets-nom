@@ -7,8 +7,8 @@ end
 # sign-in page
 post '/users' do
     @user = User.new(
-      name: params[:name], 
-      email: params[:email], 
+      name: params[:name],
+      email: params[:email],
     )
     @user.password = params[:password]
      @noms = Nom.all
@@ -40,7 +40,7 @@ end
 
 get '/dashboard' do
   @user = current_user
-  @noms = Nom.all
+  @noms = Nom.all.sort_by{|nom| nom.created_at}.reverse!
   erb :dashboard
 end
 

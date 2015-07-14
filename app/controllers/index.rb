@@ -19,9 +19,10 @@ end
 
 # create
 post '/noms' do
-    address = params[:address].gsub(" ", "+")
+    address = params[:address].gsub(" ", "+").gsub(",", "")
+    API_KEY = "AIzaSyCfYs8m-XUsyrvdZUDUDc2_C3obAbTAfXI"
   # address = "New York".gsub(" ", "+")
-  response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{address}&key=AIzaSyCfYs8m-XUsyrvdZUDUDc2_C3obAbTAfXI")
+  response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{address}&key=#{API_KEY}")
   @lat = JSON.parse(response.body)["results"][0]["geometry"]["location"]["lat"]
   @lon = JSON.parse(response.body)["results"][0]["geometry"]["location"]["lng"]
 
@@ -37,9 +38,10 @@ post '/noms' do
     lon: @lon,
   )
 
-  redirect '/noms'
+  redirect '/dashboard'
   # erb :display_all
 #error bc api doesn't take into consideration addresses, only cities!
+#solution: switched to Geolocate API
 
 
   # if request.xhr?
@@ -61,6 +63,6 @@ end
 delete '/noms/:id' do
   @nom = Nom.where(id: params[:id]).first
   @nom.destroy
-  redirect '/noms'
+  redirect '/dashboard'
 end
 
