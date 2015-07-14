@@ -21,13 +21,9 @@ end
 post '/noms' do
     address = params[:address].gsub(" ", "+")
   # address = "New York".gsub(" ", "+")
-  response = HTTParty.get("https://devru-latitude-longitude-find-v1.p.mashape.com/latlon.php?location=#{address}",
-    headers: {
-      "X-Mashape-Key" => "8WhlqD2BDemshWQr029mEzYwT9VUp1pgRibjsnfsEbRAKnnO4X",
-      "Accept" => "application/json"
-    })
-  @lat = JSON.parse(response.body)["Results"][0]["lat"]
-  @lon = JSON.parse(response.body)["Results"][0]["lon"]\
+  response = HTTParty.get("https://maps.googleapis.com/maps/api/geocode/json?address=#{address}&key=AIzaSyCfYs8m-XUsyrvdZUDUDc2_C3obAbTAfXI")
+  @lat = JSON.parse(response.body)["results"][0]["geometry"]["location"]["lat"]
+  @lon = JSON.parse(response.body)["results"][0]["geometry"]["location"]["lng"]
 
   @nom = Nom.create(
     food_name: params[:food_name],
@@ -38,12 +34,14 @@ post '/noms' do
     amount: params[:amount],
     date_made: params[:date_made],
     lat: @lat,
-    lon: @lon, 
+    lon: @lon,
   )
 
+  redirect '/noms'
+  # erb :display_all
+#error bc api doesn't take into consideration addresses, only cities!
 
 
-  erb :display_all
   # if request.xhr?
 
   # else
