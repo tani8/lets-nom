@@ -21,7 +21,11 @@ post '/users' do
  end
 
 get '/login' do
-  erb :login
+  if(logged_in?)
+    redirect '/dashboard'
+  else
+    erb :login
+  end
 end
 
 # login page
